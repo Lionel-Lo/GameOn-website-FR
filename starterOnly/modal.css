@@ -30,6 +30,17 @@ img {
   padding-right: 1rem;
 }
 
+.show{
+  display: block;
+}
+
+.hidden{
+  display: none;
+}
+.errorMessage{
+  color: red;
+}
+
 .topnav {
   overflow: hidden;
   margin: 3.5%;
