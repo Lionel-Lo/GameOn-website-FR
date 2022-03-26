@@ -1,5 +1,36 @@
-//function
+// DOM Elements
+const modalbg = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".modal-btn");
+const formData = document.querySelectorAll(".formData");
+const prenom = document.getElementById("first");
+const prenomHidden = document.querySelector("div.firstName div");
+const nom = document.getElementById("last");
+const nomHidden = document.querySelector("div.lastName div");
+const mail = document.getElementById("email");
+const emailHidden = document.querySelector("div.mail div");
+const quantity = document.getElementById("quantity");
+const quantityHidden = document.querySelector("div.quantity div");
+const location1 = document.getElementById("location1");
+const location2 = document.getElementById("location2");
+const location3 = document.getElementById("location3");
+const location4 = document.getElementById("location4");
+const location5 = document.getElementById("location5");
+const location6 = document.getElementById("location6");
+const check1Hidden = document.querySelector("div.check1 div");
+const checkbox1 = document.getElementById("checkbox1");
+const checkbox1Hidden = document.querySelector("div.checkbox1 div");
+const birthdate = document.getElementById("birthdate");
+const birthdateHidden = document.querySelector("div.birthdate div");
 
+let checkPrenomValid;
+let checkNomValid;
+let checkMailValid;
+let checkQuantityValid;
+let checkLocationValid;
+let CheckCheckbox1Valid;
+let checkBirthdateValid;
+
+//function
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -29,16 +60,40 @@ function isMailValid(mail) {
   }
 }
 
-// DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-const prenom = document.getElementById("first");
-const prenomHidden = document.querySelector("div.firstName div");
-const nom = document.getElementById("last");
-const nomHidden = document.querySelector("div.lastName div");
-const mail = document.getElementById("email");
-const emailHidden = document.querySelector("div.mail div");
+//function quantity
+function isQuantityValid(quantity) {
+  var quantityFormat = "^[0-9]{1,2}$";
+  if (quantity.match(quantityFormat)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+//fuction Check Ville
+function check1() {
+  if (
+    location.value == location1.checked ||
+    location2.checked ||
+    location3.checked ||
+    location4.checked ||
+    location5.checked ||
+    location6.checked
+  ) {
+    checkLocationValid = true;
+  } else {
+    checkLocationValid = false;
+    check1Hidden.classList.remove("hidden");
+  }
+}
+
+//function for accept condition
+function checkbox() {
+  if (checkbox1.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -47,47 +102,85 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
+//close modal
+const close = document.querySelector(".close");
+close.addEventListener("click", closeX);
+function closeX() {
+  modalbg.style.display = "none";
+}
 
 
-
-/*1er selection champ
-2e detecter l'envent quand user change value input
-3e cree fonction*/
 
 //pour le prenom
-prenom.addEventListener("input", (event) => {
+function testPrenom (){
   isNameValid(prenom.value);
   if (isNameValid(prenom.value) == false) {
     prenomHidden.classList.remove("hidden");
+    checkPrenomValid = false
   } else {
     prenomHidden.classList.add("hidden");
-  }
-});
+    checkPrenomValid = true;
+  }};
 
 //pour le nom
-nom.addEventListener("input", (event) => {
+function testNom (){
   isNameValid(nom.value);
   if (isNameValid(nom.value) == false) {
+    checkNomValid = false
     nomHidden.classList.remove("hidden");
   } else {
     nomHidden.classList.add("hidden");
-  }
-});
+    checkNomValid = true;
+  }};
 
 //pour le mail
-mail.addEventListener("input", (event) => {
+function testMail (){
   isMailValid(mail.value);
   if (isMailValid(mail.value) == false) {
+    checkMailValid = false
     emailHidden.classList.remove("hidden");
   } else {
     emailHidden.classList.add("hidden");
-  }
-});
+    checkMailValid = true
+  }};
 
-/*var birthdate =document.getElementById('birthdate')
+//pour quantity
+function testQuantity(){
+  isQuantityValid(quantity.value);
+  if (isQuantityValid(quantity.value) == false) {
+    checkQuantityValid = false;
+    quantityHidden.classList.remove("hidden");
+  } else {
+    quantityHidden.classList.add("hidden");
+    checkQuantityValid = true;
+  }};
 
-var checkbox_input = document.getElementsByClassName('checkbox-input')
+//check condition
+function testCondition(){
+  if (checkbox() == false) {
+    CheckCheckbox1Valid = false;
+    checkbox1Hidden.classList.remove("hidden");
+  } else {
+    CheckCheckbox1Valid = true;
+    checkbox1Hidden.classList.add("hidden");
+  }};
 
-var checkbox2 = document.getElementById('checkbox2')
+//pour la date
+function testDate(){
+  var today = new Date().toISOString().slice(0, 10);
+  if (birthdate.value > today) {
+    checkBirthdateValid = false;
+    birthdateHidden.classList.remove("hidden");
+  } else {
+    checkBirthdateValid = true;
+    birthdateHidden.classList.add("hidden");
+  }};
 
-var button = document.getElementById('button')*/
+const valid = document.getElementById('submit');
+valid.addEventListener("click", (event) => {
+  testPrenom();testNom();testMail();testQuantity();testCondition();testDate();check1();
+  if (checkPrenomValid && checkNomValid && checkMailValid && checkQuantityValid && checkLocationValid && CheckCheckbox1Valid && checkBirthdateValid == true){
+    console.log('cool')
+  }else{
+    console.error('no no no')
+  }})
