@@ -21,7 +21,9 @@ const checkbox1 = document.getElementById("checkbox1");
 const checkbox1Hidden = document.querySelector("div.checkbox1 div");
 const birthdate = document.getElementById("birthdate");
 const birthdateHidden = document.querySelector("div.birthdate div");
+const valid = document.getElementById('submit');
 
+//pour la vérification final 
 let checkPrenomValid;
 let checkNomValid;
 let checkMailValid;
@@ -38,6 +40,26 @@ function editNav() {
   } else {
     x.className = "topnav";
   }
+}
+
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// launch modal form
+function launchModal() {
+  modalbg.style.display = "block";
+}
+//close modal
+const close = document.querySelector(".close");
+close.addEventListener("click", closeX);
+function closeX() {
+  modalbg.style.display = "none";
+}
+//boutton fermer du message de validation
+const successMessageClose = document.getElementById('successMessageClose')
+successMessageClose.addEventListener("click", closeMessage);
+function closeMessage() {
+  modalbg.style.display = "none";
 }
 
 //function régle regex for name and last name
@@ -72,7 +94,7 @@ function isQuantityValid(quantity) {
 //fuction Check Ville
 function check1() {
   if (
-    location.value == location1.checked ||
+    location.value = location1.checked ||
     location2.checked ||
     location3.checked ||
     location4.checked ||
@@ -94,22 +116,6 @@ function checkbox() {
     return false;
   }
 }
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
-//close modal
-const close = document.querySelector(".close");
-close.addEventListener("click", closeX);
-function closeX() {
-  modalbg.style.display = "none";
-}
-
-
 
 //pour le prenom
 function testPrenom (){
@@ -176,11 +182,20 @@ function testDate(){
     birthdateHidden.classList.add("hidden");
   }};
 
-const valid = document.getElementById('submit');
-valid.addEventListener("click", (event) => {
+
+  //test condition et affichage du message de validation
+
+
+valid.addEventListener("click", (e) => 
+{
+  e.preventDefault();
   testPrenom();testNom();testMail();testQuantity();testCondition();testDate();check1();
   if (checkPrenomValid && checkNomValid && checkMailValid && checkQuantityValid && checkLocationValid && CheckCheckbox1Valid && checkBirthdateValid == true){
     console.log('cool')
-  }else{
-    console.error('no no no')
-  }})
+    const formContanner = document.getElementById('formContanner')
+    formContanner.classList.add("hidden");
+    const successMessage = document.getElementById('successMessage');
+    successMessage.classList.remove("hidden");
+  }
+})
+

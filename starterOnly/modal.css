@@ -30,15 +30,25 @@ img {
   padding-right: 1rem;
 }
 
+/*Mise en forme du message de validation*/
 .show{
-  display: block;
+  display: flex;
+  block-size: 500px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 50%;
 }
 
+/*cacher le message d'erreur*/
 .hidden{
   display: none;
 }
+
+/*mise en forme du message d'erreur*/
 .errorMessage{
   color: red;
+  font-size: 14px;
 }
 
 .topnav {
